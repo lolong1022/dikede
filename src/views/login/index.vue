@@ -102,7 +102,7 @@ export default {
       this.formInline.clientToken = Math.floor(Math.random() * 32)
       await this.$store.dispatch('user/setCode', this.formInline.clientToken)
       this.imgUrl = window.URL.createObjectURL(this.$store.state.user.code)
-      console.log(11, this.imgUrl)
+      // console.log(11, this.imgUrl)
     },
     // 眼睛的点击事件
     changeEye() {
@@ -113,22 +113,30 @@ export default {
       })
     },
     // 登录按钮点击
-    async getLogin() {
-      try {
-        this.loading = true
-        await this.$store.dispatch('user/setLogin', this.formInline)
-        if (this.$store.state.user.message.success) {
-          this.$router.push('/dashboard')
-          this.$message({
-            message: '登陆成功',
-            type: 'success'
-          })
-        } else {
-          this.$message.error(this.$store.state.user.message.msg)
+    getLogin() {
+      // 判断校验规则是否全通过 在执行下边逻辑
+      this.$refs.loginForm.validate(async(viaRules) => {
+        if (viaRules) {
+          try {
+            this.loading = true
+            // 调用vuex中的setLogin
+            await this.$store.dispatch('user/setLogin', this.formInline)
+            // 判断success的状态
+            if (this.$store.state.user.message.success) {
+              // 跳转页面
+              this.$router.push('/dashboard')
+              this.$message({
+                message: '登陆成功',
+                type: 'success'
+              })
+            } else {
+              this.$message.error(this.$store.state.user.message.msg)
+            }
+          } finally {
+            this.loading = false
+          }
         }
-      } finally {
-        this.loading = false
-      }
+      })
     }
   }
 }

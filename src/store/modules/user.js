@@ -36,10 +36,11 @@ export default {
     },
     // 登录请求
     async setLogin(context, loginData) {
+      console.log(loginData)
       const { data } = await loginAPI(loginData)
       context.commit('SET_TOKEN', data.token)
       context.commit('SET_MESSAGE', data)
-      console.log(data)
+      // console.log(data)
     }
   }
 }
