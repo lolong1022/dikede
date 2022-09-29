@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from '@/store'
 Vue.use(Router)
 
 /* Layout */
@@ -46,14 +45,31 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: store.state.user.token ? '/login' : '/dashboard',
+    redirect: '/dashboard',
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: 'Dashboard', icon: 'dashboard' },
+      children: [{
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index'),
+        meta: { title: 'Dashboard', icon: 'dashboard' }
+      }]
     }]
   },
+  // {
+  //   path: '/dashboard1',
+  //   component: Layout,
+  //   redirect: '/dashboard1',
+  //   children: [{
+  //     path: 'dashboard1',
+  //     name: 'Dashboard1',
+  //     component: () => import('@/views/dashboard/index'),
+  //     meta: { title: 'Dashboard1', icon: 'dashboard' }
+  //   }]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

@@ -28,8 +28,8 @@ export default {
     async setCode({ commit }, randomNum) {
       try {
         const code = await codeAPI(randomNum)
-        console.log(code.data)
-        commit('SET_CODE', code.data)
+        // console.log(121, code.data)
+        commit('SET_CODE', code)
       } catch (error) {
         new Error(error)
       }
@@ -37,10 +37,12 @@ export default {
     // 登录请求
     async setLogin(context, loginData) {
       console.log(loginData)
-      const { data } = await loginAPI(loginData)
+      const data = await loginAPI(loginData)
       context.commit('SET_TOKEN', data.token)
       context.commit('SET_MESSAGE', data)
-      // console.log(data)
+      console.log(data)
     }
+    // 登录退出删除数据
+
   }
 }

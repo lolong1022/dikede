@@ -35,8 +35,9 @@ export default {
     },
     classObj() {
       return {
+        // hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
-        withoutAnimation: this.sidebar.withoutAnimation,
+        // withoutAnimation: this.sidebar.withoutAnimation,
         mobile: this.device === 'mobile'
       }
     }
@@ -49,21 +50,20 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-  @import "~@/styles/mixin.scss";
-  @import "~@/styles/variables.scss";
-
-  .app-wrapper {
+  <style lang="scss" scoped>
+   @import "~@/styles/mixin.scss";
+   @import "~@/styles/variables.scss";
+   .app-wrapper {
     @include clearfix;
     position: relative;
     height: 100%;
     width: 100%;
     &.mobile.openSidebar{
-      position: fixed;
-      top: 0;
+     position: fixed;
+     top: 0;
     }
-  }
-  .drawer-bg {
+   }
+   .drawer-bg {
     background: #000;
     opacity: 0.3;
     width: 100%;
@@ -71,22 +71,20 @@ export default {
     height: 100%;
     position: absolute;
     z-index: 999;
-  }
-
-  .fixed-header {
+   }
+   .fixed-header {
     position: fixed;
     top: 0;
     right: 0;
     z-index: 9;
     width: calc(100% - #{$sideBarWidth});
     transition: width 0.28s;
-  }
-
-  .hideSidebar .fixed-header {
+   }
+   .hideSidebar .fixed-header {
     width: calc(100% - 54px)
-  }
+   }
+   .mobile .fixed-header {
+   width: 100%;
+   }
+  </style>
 
-  .mobile .fixed-header {
-    width: 100%;
-  }
-</style>

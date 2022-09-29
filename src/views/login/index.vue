@@ -47,10 +47,6 @@
       </div>
 
       <el-button v-loading="loading" class="loginBtn" @click="getLogin">登录</el-button>
-      <div class="tips">
-        <span style="margin-right:20px;">账号: 13800000002</span>
-        <span> 密码: 123456</span>
-      </div>
 
     </el-form>
   </div>
@@ -122,16 +118,11 @@ export default {
             // 调用vuex中的setLogin
             await this.$store.dispatch('user/setLogin', this.formInline)
             // 判断success的状态
-            if (this.$store.state.user.message.success) {
-              // 跳转页面
-              this.$router.push('/dashboard')
-              this.$message({
-                message: '登陆成功',
-                type: 'success'
-              })
-            } else {
-              this.$message.error(this.$store.state.user.message.msg)
-            }
+            this.$message({
+              message: '登陆成功',
+              type: 'success'
+            })
+            this.$router.push('/dashboard')
           } finally {
             this.loading = false
           }
